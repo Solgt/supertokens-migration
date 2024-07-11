@@ -1,4 +1,4 @@
-# supertokens-migration
+# supertokens-migration 🔏👥
 
 Scripts to migrate users from one Supertokens deployment to another. Migrates user info, providers, roles and metadata from a source (assumed development) to target (assumed production).
 
