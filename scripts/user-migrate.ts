@@ -1,8 +1,6 @@
 import dotenv from "dotenv";
 import { colors, sleep } from "./utils/utils";
 
-const hardcodedUserId = "insert-user-id-here";
-
 /**
  * If your user metadata has a specific form, you can define it here.
  */
@@ -39,6 +37,11 @@ const supertokensApiPaths = {
  */
 async function main() {
     try {
+        const argUser = process.argv[2];
+        if (!argUser) {
+            console.error("No userId provided as argument");
+            process.exit(1);
+        }
         /**
          * Setup and checks
          */
@@ -52,42 +55,20 @@ async function main() {
          * Main logic
          */
         console.info(colors.cyan, "===Migration script started");
-        const allExistingUsers = await getAllUserIds(
-            ST_CONNECTION_URI_DEV,
-            ST_API_KEY_DEV
-        );
-        if (allExistingUsers.length === 0)
-            throw new Error("No existing users found.");
 
         let migratedUsers = 0;
 
-        for (const userId of allExistingUsers) {
-            const migrationStatus = await migrateUser({
-                ST_CONNECTION_URI_DEV,
-                ST_API_KEY_DEV,
-                ST_CONNECTION_URI_PROD,
-                ST_API_KEY_PROD,
-                userId,
-            });
-            if (migrationStatus !== "OK") {
-                console.error(`=!=Migration failed for ${userId}`);
-                continue;
-            }
-            migratedUsers++;
+        const migrationStatus = await migrateUser({
+            ST_CONNECTION_URI_DEV,
+            ST_API_KEY_DEV,
+            ST_CONNECTION_URI_PROD,
+            ST_API_KEY_PROD,
+            userId: argUser,
+        });
+        if (migrationStatus !== "OK") {
+            console.error(`=!=Migration failed for ${argUser}`);
         }
-
-        // * Uncomment to migrate a single user
-        // const migrationStatus = await migrateUser({
-        //     ST_CONNECTION_URI_DEV,
-        //     ST_API_KEY_DEV,
-        //     ST_CONNECTION_URI_PROD,
-        //     ST_API_KEY_PROD,
-        //     userId: hardcodedUserId2,
-        // });
-        // if (migrationStatus !== "OK") {
-        //     console.error(`=!=Migration failed for ${hardcodedUserId2}`);
-        // }
-        // migratedUsers++;
+        migratedUsers++;
         /**
          * Logging output
          */

@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "migrate": "bun run scripts/users-migrate.ts"
+    "migrate": "bun run scripts/users-migrate.ts",
+    "migrate-user": "bun run scripts/user-migrate.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
