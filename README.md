@@ -21,6 +21,7 @@ Scripts to migrate users from one Supertokens deployment to another. Migrates us
 
 -   Metadata migration expects there to be a non-empty object. If you have users that have no metadata (empty object), this will be flagged as a failed migration for the user in question but the script will continue.
 -   Script can be run multiple times over to refresh recent changes.
+-   Does not migrate sessions.
 
 ## Author
 
