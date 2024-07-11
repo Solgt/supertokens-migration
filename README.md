@@ -1,6 +1,6 @@
 # supertokens-migration 🔏👥
 
-Scripts to migrate users from one Supertokens deployment to another. Migrates user info, providers, roles and metadata from a source (assumed development) to target (assumed production).
+Scripts to migrate users from one Supertokens deployment to another. Migrates user info, providers, carries over existing userId, roles and metadata from a source (assumed development) to target (assumed production).
 
 ## Prerequisites
 
@@ -14,6 +14,7 @@ Scripts to migrate users from one Supertokens deployment to another. Migrates us
 
 ## Install and Run
 
+-   Fetch repo to your local machine `git clone https://github.com/Solgt/supertokens-migration.git`
 -   Install with `bun i`
 -   To migrate a single user, run `bun run migrate-user <userId>`
 -   To migrate all users with common role, run `bun run migrate`
